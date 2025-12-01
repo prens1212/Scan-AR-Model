@@ -1,0 +1,254 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #030307;
+  color: #f5f5f5;
+  overflow: hidden;
+}
+
+#ui {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1.5rem 1rem;
+  background: radial-gradient(circle at top, #262262 0, #030307 45%);
+}
+
+.shell {
+  width: 100%;
+  max-width: 420px;
+}
+
+.app-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+  color: #f9f9ff;
+}
+
+.app-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.app-text h1 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.app-text p {
+  font-size: 0.8rem;
+  margin: 0;
+  color: #dadcf9;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 1rem 1.1rem 1.15rem;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.65);
+}
+
+.tabs {
+  display: flex;
+  gap: 1rem;
+  border-bottom: 1px solid #e2e4f3;
+  margin-bottom: 0.8rem;
+}
+
+.tab {
+  flex: 1;
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  font-size: 0.78rem;
+  padding: 0.55rem 0;
+  color: #777ba5;
+  box-shadow: none;
+}
+
+.tab.active {
+  color: #4c5bff;
+  border-bottom: 2px solid #4c5bff;
+}
+
+.tab:disabled {
+  opacity: 0.4;
+}
+
+.card-body h2 {
+  font-size: 0.95rem;
+  margin: 0 0 0.75rem;
+  color: #333854;
+}
+
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.field label {
+  font-size: 0.78rem;
+  color: #3d4260;
+  margin-bottom: 0.35rem;
+}
+
+.field input[type="text"] {
+  font-size: 0.78rem;
+  padding: 0.5rem 0.65rem;
+  border-radius: 8px;
+  border: 1px solid #d7d9f0;
+  outline: none;
+}
+
+.field input[type="text"]:focus {
+  border-color: #4c5bff;
+  box-shadow: 0 0 0 1px rgba(76, 91, 255, 0.18);
+}
+
+.field input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.dropzone {
+  position: relative;
+  border-radius: 14px;
+  border: 2px dashed #d2d6f3;
+  background: #f7f8ff;
+  padding: 0.9rem 0.8rem;
+  text-align: center;
+}
+
+.drop-main {
+  font-size: 0.8rem;
+  margin: 0;
+  color: #4b4f80;
+}
+
+.drop-sub {
+  font-size: 0.7rem;
+  margin: 0.25rem 0 0;
+  color: #9a9ec2;
+}
+
+.checkbox-field label {
+  font-size: 0.78rem;
+  color: #3d4260;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.marker-preview {
+  margin-top: 0.45rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.7rem;
+  color: #6a6f93;
+}
+
+.marker-preview img {
+  max-width: 100%;
+  max-height: 140px;
+  border-radius: 10px;
+  border: 1px solid #d7d9f0;
+  object-fit: contain;
+  background: #f7f8ff;
+}
+
+.buttons-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+button {
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.8rem;
+  background: #ff4b5c;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.2s ease;
+}
+
+button:hover {
+  background: #ff6a78;
+}
+
+button:active {
+  transform: translateY(1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+button.secondary {
+  background: #2b2f3a;
+  color: #e0e3ed;
+}
+
+button.secondary:hover {
+  background: #3a3f4c;
+}
+
+.help {
+  font-size: 0.75rem;
+  color: #c0c4ce;
+}
+
+.help summary {
+  cursor: pointer;
+}
+
+.help ol {
+  padding-left: 1rem;
+}
+
+.help p {
+  margin-top: 0.25rem;
+}
+
+/* A-Frame canvas fill screen di belakang UI */
+a-scene {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+
+

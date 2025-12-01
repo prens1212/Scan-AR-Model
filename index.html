@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Web AR Uploader - GLB & JSON</title>
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- A-Frame & AR.js (marker-based WebAR yang ringan) -->
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/2.2.1/aframe/build/aframe-ar.js"></script>
+  </head>
+  <body>
+    <div id="ui">
+      <div class="shell">
+        <header class="app-header">
+          <div class="app-icon">🎨</div>
+          <div class="app-text">
+            <h1>AR 3D Model Uploader</h1>
+            <p>Upload model 3D GLB & data 2D JSON, lalu lihat di AR marker.</p>
+          </div>
+        </header>
+
+        <div class="card">
+          <div class="tabs">
+            <button class="tab active" type="button">Upload Model</button>
+            <button class="tab" type="button" disabled>Scanner AR</button>
+          </div>
+
+          <div class="card-body">
+            <h2>Upload Model 3D & Data 2D</h2>
+
+            <div class="field">
+              <label for="glbInput">Pilih File Model 3D (.glb)</label>
+              <div class="dropzone">
+                <p class="drop-main">Klik untuk upload file GLB</p>
+                <p class="drop-sub">Format: .glb (GLTF Binary)</p>
+                <input id="glbInput" type="file" accept=".glb,model/gltf-binary" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="jsonInput">Pilih File Data 2D (.json)</label>
+              <div class="dropzone">
+                <p class="drop-main">Klik untuk upload file JSON</p>
+                <p class="drop-sub">Format: .json (opsional)</p>
+                <input id="jsonInput" type="file" accept=".json,application/json" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="modelName">Nama Model (opsional)</label>
+              <input id="modelName" type="text" placeholder="Contoh: Robot, Character, dll" />
+            </div>
+
+            <div class="field">
+              <label for="scaleRange">Skala Model</label>
+              <input id="scaleRange" type="range" min="0.2" max="3" step="0.1" value="1" />
+              <div class="scale-labels">
+                <span>Skala: <span id="scaleValue">1.0x</span></span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="markerInput">Pilih Gambar Marker (yang akan di-scan)</label>
+              <div class="dropzone">
+                <p class="drop-main">Klik untuk upload gambar marker</p>
+                <p class="drop-sub">Format: JPG, PNG (disarankan kontras tinggi)</p>
+                <input id="markerInput" type="file" accept="image/*" />
+              </div>
+              <div class="marker-preview" id="markerPreviewWrapper" style="display: none;">
+                <span>Preview marker:</span>
+                <img id="markerPreview" alt="Preview marker" />
+              </div>
+            </div>
+
+            <div class="field checkbox-field">
+              <label>
+                <input id="animateToggle" type="checkbox" />
+                Aktifkan animasi (jika model memiliki animasi)
+              </label>
+            </div>
+
+            <div class="buttons-row">
+              <button id="uploadBtn" type="button">Upload / Tampilkan</button>
+              <button id="clearBtn" type="button" class="secondary">Reset</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scene AR.js -->
+    <a-scene
+      embedded
+      vr-mode-ui="enabled: false"
+      arjs="sourceType: webcam; debugUIEnabled: false;"
+    >
+      <!-- Kamera AR -->
+      <a-entity camera></a-entity>
+
+      <!-- Marker preset "hiro" -->
+      <a-marker id="hiroMarker" preset="hiro">
+        <!-- Container untuk model 3D -->
+        <a-entity id="model3dContainer" position="0 0 0" rotation="0 0 0" scale="1 1 1"></a-entity>
+        <!-- Container untuk konten 2D (teks dari JSON) -->
+        <a-entity id="model2dContainer" position="0 1 0" rotation="-90 0 0" scale="1 1 1"></a-entity>
+      </a-marker>
+
+      <!-- Background jika marker tidak terlihat -->
+      <a-entity id="fallbackPlane" position="0 0 -5" geometry="primitive: plane; height: 4; width: 6" material="color: #222"></a-entity>
+    </a-scene>
+
+    <script src="app.js"></script>
+  </body>
+  </html>
+
+
