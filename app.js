@@ -110,12 +110,46 @@ function init() {
     }
   }
 
+  // Toast notification
+  function showToast(message, type = "success") {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.className = `toast toast-${type}`;
+    toast.style.display = "block";
+    
+    setTimeout(() => {
+      toast.style.opacity = "1";
+      toast.style.transform = "translateY(0)";
+    }, 10);
+
+    setTimeout(() => {
+      toast.style.opacity = "0";
+      toast.style.transform = "translateY(-20px)";
+      setTimeout(() => {
+        toast.style.display = "none";
+      }, 300);
+    }, 3000);
+  }
+
   uploadBtn.addEventListener("click", () => {
     if ((!glbInput.files || !glbInput.files[0]) && (!jsonInput.files || !jsonInput.files[0])) {
-      alert("Pilih dulu file GLB dan/atau JSON.");
+      showToast("Pilih dulu file GLB dan/atau JSON.", "error");
       return;
     }
-    loadFromInputs();
+    
+    try {
+      loadFromInputs();
+      
+      // Feedback sukses
+      const uploadedFiles = [];
+      if (glbInput.files && glbInput.files[0]) uploadedFiles.push("Model 3D");
+      if (jsonInput.files && jsonInput.files[0]) uploadedFiles.push("Data JSON");
+      
+      showToast(`✅ Upload berhasil! ${uploadedFiles.join(" & ")} siap ditampilkan di AR.`, "success");
+    } catch (err) {
+      showToast("❌ Upload gagal. Coba lagi.", "error");
+      console.error(err);
+    }
   });
 
   clearBtn.addEventListener("click", () => {
@@ -133,6 +167,40 @@ function init() {
     animateToggle.checked = false;
     markerPreviewWrapper.style.display = "none";
     markerPreview.src = "";
+    showToast("Data telah direset", "info");
+  });
+
+  // Tab switching
+  const tabUpload = document.getElementById("tabUpload");
+  const tabScanner = document.getElementById("tabScanner");
+  const uploadCard = document.getElementById("uploadCard");
+  const uploadBody = document.getElementById("uploadBody");
+  const scannerView = document.getElementById("scannerView");
+  const backBtn = document.getElementById("backBtn");
+
+  tabUpload.addEventListener("click", () => {
+    tabUpload.classList.add("active");
+    tabScanner.classList.remove("active");
+    uploadCard.style.display = "block";
+    scannerView.style.display = "none";
+  });
+
+  tabScanner.addEventListener("click", () => {
+    if (!currentModel3D && !currentModel2D) {
+      showToast("Upload model dulu sebelum scan AR", "error");
+      return;
+    }
+    tabScanner.classList.add("active");
+    tabUpload.classList.remove("active");
+    uploadCard.style.display = "none";
+    scannerView.style.display = "block";
+  });
+
+  backBtn.addEventListener("click", () => {
+    tabUpload.classList.add("active");
+    tabScanner.classList.remove("active");
+    uploadCard.style.display = "block";
+    scannerView.style.display = "none";
   });
 }
 

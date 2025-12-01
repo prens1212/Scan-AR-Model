@@ -21,13 +21,13 @@
           </div>
         </header>
 
-        <div class="card">
+        <div class="card" id="uploadCard">
           <div class="tabs">
-            <button class="tab active" type="button">Upload Model</button>
-            <button class="tab" type="button" disabled>Scanner AR</button>
+            <button class="tab active" id="tabUpload" type="button">Upload Model</button>
+            <button class="tab" id="tabScanner" type="button">Scanner AR</button>
           </div>
 
-          <div class="card-body">
+          <div class="card-body" id="uploadBody">
             <h2>Upload Model 3D & Data 2D</h2>
 
             <div class="field">
@@ -87,6 +87,20 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Scanner AR View (fullscreen) -->
+    <div id="scannerView" class="scanner-view" style="display: none;">
+      <div class="scanner-header">
+        <button id="backBtn" type="button" class="back-btn">← Kembali</button>
+        <h3>AR Scanner</h3>
+      </div>
+      <div class="scanner-instruction">
+        <p>Arahkan kamera ke marker Hiro untuk melihat model 3D</p>
       </div>
     </div>
 
